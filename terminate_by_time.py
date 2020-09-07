@@ -9,6 +9,7 @@ cfn = ct.client('cloudformation',region_name='us-east-1')
 ec2 = ct.resource('ec2', region_name = 'us-east-1')
 stackname = []
 instance_id = []
+volume_id = []
 tags = {}
 for stack in cfn.list_stacks()['StackSummaries']:
     stackname.append(stack['StackName'])
@@ -22,11 +23,24 @@ for stackX in stackname:
         pass
 for instance in instance_id:
     response = ec2.Instance(instance)
+    volume = response.volumes.all()
+    for v in volume:
+        volume_id.append(v.create_time.strftime("%H:%M:%S"))
     for tag in response.tags:
         tags[tag['Key']] = tag['Value']
 
 for key, value in tags.items():
     if key == 'CCC_EXPIRY_TIME':
+        now = ('{:%H:%M:%S}'.format(current_date_time))
         print(value)
-        print('{:%H:%M:%S}'.format(current_date_time))
-        print('{:%H:%M:%S}'.format(current_date_time.now() + timedelta(hours=int(value))))
+        for vol in volume_id[0:1]:
+            date_strip = datetime.strptime(vol,'%H:%M:%S')
+            print(vol)
+            #volumex = int((vol))
+            get = (date_strip + timedelta(hours=int(value)))
+            print('{:%H:%M:%S}'.format(get))
+            #print(get)
+            #if now >= get:
+            #    print('it over')
+            #else:
+            #    print('not yet')
