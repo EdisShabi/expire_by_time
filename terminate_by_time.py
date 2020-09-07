@@ -36,11 +36,10 @@ for key, value in tags.items():
         for vol in volume_id[0:1]:
             date_strip = datetime.strptime(vol,'%H:%M:%S')
             print(vol)
-            #volumex = int((vol))
             get = (date_strip + timedelta(hours=int(value)))
+            additional_time = '{:%H:%M:%S}'.format(get)
             print('{:%H:%M:%S}'.format(get))
-            #print(get)
-            #if now >= get:
-            #    print('it over')
-            #else:
-            #    print('not yet')
+            if current_date_time > get:
+                print(0)
+            else:
+                print(1)
