@@ -2,7 +2,7 @@ import boto3
 import os
 from datetime import datetime, timedelta
 
-current_date_time = datetime.now()
+current_date_time = datetime.utcnow()
 
 ct = boto3.session.Session(profile_name='aws-im-dev')
 cfn = ct.client('cloudformation',region_name='us-east-1')
@@ -32,16 +32,16 @@ for instance in instance_id:
 for key, value in tags.items():
     if key == 'CCC_EXPIRY_TIME':
         now = ('{:%H:%M:%S}'.format(current_date_time))
-        #print(value)
         for vol in volume_id[0:1]:
             date_strip = datetime.strptime(vol,'%H:%M:%S')
-            print('value',vol)
             get = (date_strip + timedelta(minutes=int(value)))
             additional_time = '{:%H:%M:%S}'.format(get)
-            print('{:%H:%M:%S}'.format(get))
-            print('now',now)
+            print('utc_now',now)
             print('additional',additional_time)
             if now > additional_time:
                 print(0)
             else:
                 print(1)
+# datetime.datetime.utcfromtimestamp(1347517370).strftime('%Y-%m-%d %H:%M:%S')
+#   '2012-09-13 06:22:50'
+
