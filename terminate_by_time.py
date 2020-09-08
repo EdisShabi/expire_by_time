@@ -42,6 +42,12 @@ for key, value in tags.items():
                 print(0)
             else:
                 print(1)
+
+# Convert EPOCH to UTC
 # datetime.datetime.utcfromtimestamp(1347517370).strftime('%Y-%m-%d %H:%M:%S')
 #   '2012-09-13 06:22:50'
 
+# Convert UTC to EPOCH
+# import datetime
+# timestamp = datetime.datetime(2017, 12, 1, 0, 0).timestamp()
+# print(timestamp)
