@@ -32,14 +32,16 @@ for instance in instance_id:
 for key, value in tags.items():
     if key == 'CCC_EXPIRY_TIME':
         now = ('{:%H:%M:%S}'.format(current_date_time))
-        print(value)
+        #print(value)
         for vol in volume_id[0:1]:
             date_strip = datetime.strptime(vol,'%H:%M:%S')
-            print(vol)
-            get = (date_strip + timedelta(hours=int(value)))
+            print('value',vol)
+            get = (date_strip + timedelta(minutes=int(value)))
             additional_time = '{:%H:%M:%S}'.format(get)
             print('{:%H:%M:%S}'.format(get))
-            if current_date_time > get:
+            print('now',now)
+            print('additional',additional_time)
+            if now > additional_time:
                 print(0)
             else:
                 print(1)
